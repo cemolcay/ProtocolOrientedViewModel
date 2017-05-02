@@ -34,7 +34,7 @@ enum HomeScreenLayout: Layout {
   // Define the type of view
   typealias ViewType = HomeScreenView
   var view: HomeScreenView? {
-  return from xib or create and return them here for each layout.
+    // return from xib or create and return them here for each layout.
   }
 }
 ```
