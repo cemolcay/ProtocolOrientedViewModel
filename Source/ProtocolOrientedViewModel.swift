@@ -22,23 +22,24 @@
 public protocol Layout {
 
   /// The type of your view that you want to layout. It should be UIView/NSView or one of their subclass.
-  associatedtype View: POView
+  associatedtype ViewType: POView
 
   /// View references for different `Layout`s. You probably want to use sepearate xib's for each Layout. Or you could create and return them programmatically in this function.
-  var view: View? { get }
+  var view: ViewType? { get }
 }
 
 /// Define your view models with a class that conforms ViewModel protocol.
 public protocol ViewModel {
 
   /// The type of your view that you want to model out. It should be UIView/NSView or one of their subclass.
-  associatedtype View: POView
+  associatedtype ViewType: POView
+  associatedtype LayoutType: Layout
 
   /// Reference of the view of view model. It will be populated from `getView:ForLayout` function.
-  var view: View? { get set }
+  var view: ViewType? { get set }
 
   /// Current `view`'s render/update function. Implement this for your view's data rendering. It will be get called automatically when layout changes.
-  func render()
+  func render(layout: LayoutType?)
 }
 
 extension ViewModel {
@@ -48,8 +49,8 @@ extension ViewModel {
   /// - Parameters:
   ///   - layout: New layout.
   ///   - view: Superview of laying out view. It's usually view controller's view property.
-  public mutating func updateLayout<L: Layout>(for layout: L, in view: POView) {
-    guard let layoutView = layout.view as? View else { return }
+  public mutating func updateLayout<L: Layout>(for layout: L, in view: POView) where L == LayoutType {
+    guard let layoutView = layout.view as? ViewType else { return }
     view.subviews.forEach{ $0.removeFromSuperview() }
     view.addSubview(layoutView)
 
@@ -62,6 +63,6 @@ extension ViewModel {
     ])
 
     self.view = layoutView
-    render()
+    render(layout: layout)
   }
 }

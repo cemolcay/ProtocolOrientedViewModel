@@ -32,9 +32,9 @@ enum HomeScreenLayout: Layout {
   case landscape
 
   // Define the type of view
-  typealias View = HomeScreenView
+  typealias ViewType = HomeScreenView
   var view: HomeScreenView? {
-    return from xib or create and return them here for each layout.
+  return from xib or create and return them here for each layout.
   }
 }
 ```
@@ -50,11 +50,11 @@ protocol HomeScreenViewDelegate: class {
 class HomeScreenView: POView { // POView is a typealias of NSView and UIView for sharing view.
   weak var delegate: HomeScreenViewDelegate?
   @IBOutlet var someLabel: UILabel?
-	
+
   @IBAction func somethingDidPress() {
     delegate?.homeScreenViewDidPressSomething(self)
   }
-	
+
   ...
 }
 ```
@@ -63,25 +63,28 @@ And create your view model
 
 ``` swift
 class HomeScreenViewModel: ViewModel, HomeScreenViewDelegate {
-	
+
   // MARK: ViewModel
-	
   // define the type of view
-  typealias View = HomeScerenView
+  typealias ViewType = HomeScerenView
   var view: HomeScrenView?
-	
+
   // Make your updates for your view.
-  func render() {
+  typealias LayoutType = ExampleLayout
+  func render(layout: ExampleLayout?) {
     view?.someLabel?.text = dataSource.someValue
     view?...
+
+    if let layout = layout, case .portrait = layout {
+      // Do layout specific stuff.
+    }
   }
-	
+
   // MARK: HomeScreenViewDelegate
-	
   func homeScreenViewDidPressSomething(_ homeScreenView: HomeScreenView) {
     dataSource.someValue = "new value"
-    render()	
-  }	
+    render(layout: nil)	
+  }
 
   ...
 }

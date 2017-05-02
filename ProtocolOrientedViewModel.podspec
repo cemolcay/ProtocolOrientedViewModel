@@ -54,14 +54,14 @@ Create xib's for each layout of each platform or just create them programmaitacl
 
 ```
 enum HomeScreenLayout: Layout {
-case portrait
-case landscape
+  case portrait
+  case landscape
 
-// Define the type of view
-typealias View = HomeScreenView
-var view: HomeScreenView? {
-return from xib or create and return them here for each layout.
-}
+  // Define the type of view
+  typealias ViewType = HomeScreenView
+  var view: HomeScreenView? {
+    return from xib or create and return them here for each layout.
+  }
 }
 ```
 
@@ -69,19 +69,19 @@ Create your view and its delegate with actions.
 
 ```
 protocol HomeScreenViewDelegate: class {
-func homeScreenViewDidPressSomething(_ homeScreenView: HomeScreenView)
-...
+  func homeScreenViewDidPressSomething(_ homeScreenView: HomeScreenView)
+  ...
 }
 
 class HomeScreenView: POView { // POView is a typealias of NSView and UIView for sharing view.
-weak var delegate: HomeScreenViewDelegate?
-@IBOutlet var someLabel: UILabel?
+  weak var delegate: HomeScreenViewDelegate?
+  @IBOutlet var someLabel: UILabel?
 
-@IBAction func somethingDidPress() {
-delegate?.homeScreenViewDidPressSomething(self)
-}
+  @IBAction func somethingDidPress() {
+    delegate?.homeScreenViewDidPressSomething(self)
+  }
 
-...
+  ...
 }
 ```
 
@@ -90,24 +90,29 @@ And create your view model
 ```
 class HomeScreenViewModel: ViewModel, HomeScreenViewDelegate {
 
-// MARK: ViewModel
-// define the type of view
-typealias View = HomeScerenView
-var view: HomeScrenView?
+  // MARK: ViewModel
+  // define the type of view
+  typealias ViewType = HomeScerenView
+  var view: HomeScrenView?
 
-// Make your updates for your view.
-func render() {
-view?.someLabel?.text = dataSource.someValue
-view?...
-}
+  // Make your updates for your view.
+  typealias LayoutType = ExampleLayout
+  func render(layout: ExampleLayout?) {
+    view?.someLabel?.text = dataSource.someValue
+    view?...
 
-// MARK: HomeScreenViewDelegate
-func homeScreenViewDidPressSomething(_ homeScreenView: HomeScreenView) {
-dataSource.someValue = "new value"
-render()
-}
+    if let layout = layout, case .portrait = layout {
+      // Do layout specific stuff.
+    }
+  }
 
-...
+  // MARK: HomeScreenViewDelegate
+  func homeScreenViewDidPressSomething(_ homeScreenView: HomeScreenView) {
+    dataSource.someValue = "new value"
+    render(layout: nil)
+  }
+
+  ...
 }
 ```
 

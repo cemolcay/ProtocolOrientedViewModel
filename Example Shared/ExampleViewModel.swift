@@ -24,7 +24,7 @@ enum ExampleLayout: Layout {
   case portrait
   case landscape
 
-  typealias View = ExampleView
+  typealias ViewType = ExampleView
   var view: ExampleView? {
     switch self {
     case .portrait:
@@ -88,26 +88,31 @@ class ExampleViewModel: ViewModel, ExampleViewDelegate {
 
   // MARK: ViewModel
 
-  typealias View = ExampleView
+  typealias ViewType = ExampleView
   var view: ExampleView? {
     didSet {
       view?.delegate = self
     }
   }
 
-  func render() {
+  typealias LayoutType = ExampleLayout
+  func render(layout: ExampleLayout?) {
     #if os(iOS) || os(tvOS)
       view?.label?.text = "\(dataSource["date"]!)"
     #elseif os(OSX)
       view?.label?.stringValue = "\(dataSource["date"]!)"
     #endif
+
+    if let layout = layout, case .portrait = layout {
+      // Do layout specific stuff.
+    }
   }
 
   // MARK: ExampleViewDelegate
 
   func exampleViewDidPressButton(_ exampleView: ExampleView) {
     dataSource["date"] = Date()
-    render()
+    render(layout: nil)
   }
 }
 
