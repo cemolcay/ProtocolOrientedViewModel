@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ExampleView" customModule="Example_iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="naP-de-iIn">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AL6-c2-es4">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="637"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHK-0D-h2G">
+                            <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="buttonDidPressWithSender:" destination="iN0-l3-epB" eventType="touchUpInside" id="e2M-Qq-mH0"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="naP-de-iIn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="J3W-NV-DRJ"/>
+                <constraint firstAttribute="trailing" secondItem="naP-de-iIn" secondAttribute="trailing" id="L52-c6-uJW"/>
+                <constraint firstItem="naP-de-iIn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="g4G-mA-yRA"/>
+                <constraint firstAttribute="bottom" secondItem="naP-de-iIn" secondAttribute="bottom" id="zkW-in-Pz8"/>
+            </constraints>
+            <connections>
+                <outlet property="button" destination="wHK-0D-h2G" id="YSs-uY-HUJ"/>
+                <outlet property="label" destination="AL6-c2-es4" id="Hdn-d5-TVW"/>
+            </connections>
+        </view>
+    </objects>
+</document>
