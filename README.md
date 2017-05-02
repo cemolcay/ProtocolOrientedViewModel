@@ -67,7 +67,7 @@ class HomeScreenViewModel: ViewModel, HomeScreenViewDelegate {
   // MARK: ViewModel
   // define the type of view
   typealias ViewType = HomeScerenView
-  var view: HomeScrenView?
+  var view: HomeScrenView? { didSet{ view?.delegate = self }}
 
   // Make your updates for your view.
   typealias LayoutType = ExampleLayout
